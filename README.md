@@ -1,5 +1,9 @@
 # kubernetes Module
 
+> :warning: This module has been used in proof of concepts, to illustrate that inmanta can integrate with kubernetes.  This module
+> is in a very early development state, and is not being actively worked on at the moment, it does not reflect how modules are usually
+> built at inmanta.
+
 ## Running tests
 
 1. Setup a virtual env 

@@ -15,15 +15,19 @@
 
     Contact: code@inmanta.com
 """
-from inmanta.plugins import PluginException, plugin
+from inmanta_plugins.kubernetes.resources.cluster_resource import ClusterResource
 
 
-@plugin
-def assert_common_cluster(
-    first: "kubernetes::resources::ClusterResource",
-    second: "kubernetes::resources::ClusterResource",
-) -> None:
-    if first.cluster != second.cluster:
-        raise PluginException(
-            f"Those two entities are not member of the same cluster but should: {first} and {second}"
+class NamespacedResource(ClusterResource):
+    fields = ("namespace",)
+
+    @staticmethod
+    def get_identifier(exporter, entity):
+        return (
+            ClusterResource.get_identifier(exporter, entity)
+            + f"/namespace/{NamespacedResource.get_namespace(exporter, entity)}"
         )
+
+    @staticmethod
+    def get_namespace(exporter, entity):
+        return entity.namespace.name

@@ -15,15 +15,3 @@
 
     Contact: code@inmanta.com
 """
-from inmanta.plugins import PluginException, plugin
-
-
-@plugin
-def assert_common_cluster(
-    first: "kubernetes::resources::ClusterResource",
-    second: "kubernetes::resources::ClusterResource",
-) -> None:
-    if first.cluster != second.cluster:
-        raise PluginException(
-            f"Those two entities are not member of the same cluster but should: {first} and {second}"
-        )
